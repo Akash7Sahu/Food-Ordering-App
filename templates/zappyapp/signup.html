@@ -1,0 +1,43 @@
+{% extends 'zappyapp/item_list.html' %}
+
+{% block parentblock %}
+{% load crispy_forms_tags%}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+ //alert("Document Loaded...");
+$("#id_username").blur(function(){
+var u=$("#id_username").val();
+  //  alert(u);
+
+    $.ajax({
+    url:'/check',
+          data: {
+            'user': u
+              },
+    type:'get',
+          dataType: 'json',
+          success: function (data) {
+            if (data.is_taken)
+            {
+              alert("User already exists.");
+              $("#id_username").val("");
+               $("#id_username").focus();
+            }}
+        });
+});
+
+
+});
+</script>
+
+<div class="container" align="center">
+  <form method="post">
+    {{sform.as_p}}
+    {% csrf_token %}
+
+ <input type="submit" value="save">
+  </form>
+</div>
+{%endblock%}

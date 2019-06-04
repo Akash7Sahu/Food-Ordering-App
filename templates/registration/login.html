@@ -1,0 +1,13 @@
+{% extends 'zappyapp/item_list.html' %}
+{% block parentblock %}
+<div class="container" align='center'>
+  <form method="post">
+    {{form.as_p}}
+    {% csrf_token %}
+    <input type="submit" name="" value="Login">
+
+  </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'zappyapp/item_list.html' %}
+ {%block parentblock %}
+    <table>
+      <table class="table table-hover">
+
+
+      <thead>
+
+        <tr>
+          <th>IMAGE</th>
+          <th>ITEM</th>
+          <th>PRICE</th>
+          <th>QUANTITY</th>
+          <th>TOTAL</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for prod in cart%}
+
+        <tr>
+          <td><img src="{{prod.pic}}" height="80px" width="80px"></td>
+          <td>{{prod.name}}</td>
+          <td>{{prod.price}}</td>
+          <td>
+            <div>
+              <form action="update" method="post">
+                <input type='number' name='quant' value="{{prod.quantity}}"/>
+                <input type="hidden" name="price" value="{{prod.price}}">
+                <input type="hidden" name="pid" value="{{prod.pid}}">
+                <input type="submit" class="btn btn btn-outline-secondary btn-sm" value="Update"> {% csrf_token %}
+
+          </form>
+
+          </div>
+          </td>
+          <td>{{prod.total}}</td>
+          <td><a href="delete/{{prod.id}}"> Delete </a>
+         </td>
+        </tr>
+        {%endfor%}
+
+
+      </tbody>
+    </table>
+<a class="button" href="order">Move To Order list</a>
+    {%endblock%}

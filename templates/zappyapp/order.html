@@ -1,0 +1,38 @@
+{% extends 'zappyapp/item_list.html' %}
+{%block parentblock %}
+
+<table>
+  <table class="table table-hover">
+
+
+  <thead>
+
+    <tr>
+      <th>IMAGE</th>
+      <th>ITEM</th>
+      <th>PRICE</th>
+      <th>QUANTITY</th>
+      <th>TOTAL</th>
+
+    </tr>
+  </thead>
+
+
+<tbody>
+  {% for pro in order %}
+
+  <tr>
+    <td><img src="{{pro.pic}}" height="80px" width="80px"></td>
+    <td>{{pro.name}}</td>
+    <td>{{pro.price}}</td>
+    <td>{{pro.Quantity}}</td>
+    <td>{{pro.Total}}</td>
+
+
+  </tr>
+  {%endfor%}
+<<a class="button" href="payment"> PAY NOW </a>
+  {%endblock%}
+</tbody>
+
+</table>

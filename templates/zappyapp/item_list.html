@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <title></title>
+  </head>
+  <body>
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header"><ol>
+          <li>  <a class="navbar-brand" href="{% url 'home' %}">Zappy</a>
+             <a class="navbar-brand" href="{% url 'viewcart' %}">Wishlist</a>
+
+            </li>
+            </ol>
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+            {%if request.user.is_authenticated is True%}
+            <li class="active"><a href="#">Welcome {{request.user}}</a></li>|
+            <li><a href="{% url 'logout'%}">logout</a></li>
+            {%endif%}|
+
+          {%if request.user.is_authenticated is False%}
+          <li><a href="signup">signup</a></li>|
+          <li><a href="{% url 'login'%}">login</a></li>
+          {%endif%}|
+          <li><a href="order">Order list</a><li>
+
+          </ul>
+        </nav>
+      </div>
+      <div class="container" align='center'>
+        <h1>{{del}}</h1>
+      </div>
+
+
+        {% block parentblock %}
+        {%endblock%}
+<div class="container" align='center'>
+  <h1>{{msg}}</h1>
+</div>
+        <div class="row">
+
+    {% for prod in item_list %}
+        <div class="card mb-3 box-shadow">
+          <div class="col-md-3" >
+          <img class="card-img-top" height="150" src="{{prod.pic.url}}" alt="Card image cap" />
+          <div class="card-body">
+            <p class="card-text">{{prod.iname}}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+        <form method='post' action='addcart' enctype="multipart/form-data">
+                  QUANTITY <br><input type='number' name='quantity'/>
+        <input type='hidden' name='qid' value='{{prod.id}}'/>
+        <input type='hidden' name='qname' value='{{prod.iname}}'/>
+        <input type='hidden' name='qprice' value='{{prod.price}}'/>
+        <input type='hidden' name='qpic' value='{{prod.pic.url}}'/>
+        {% csrf_token %}
+
+        <input type="submit" class="btn btn btn-outline-secondary btn-sm" value='Add to cart'/>
+
+                    </form>
+               </div>
+              <h5 class="text-muted"><i class="fa fa-rupee">{{prod.price}}</i></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      {%endfor%}
+    </div>
+
+
+  </body>
+</html>
